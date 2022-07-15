@@ -1,7 +1,8 @@
-package com.book;
+package com.book.controller;
 
 import com.book.model.APIResponseData;
 import com.book.model.Book;
+import com.book.model.BookDetails;
 import com.book.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,11 @@ public class BookController {
        return ResponseEntity.ok(bookService.createBook(book));
     }
 
+    @PostMapping("/addBooks")
+    public ResponseEntity<List<Book>> createBooks(@RequestBody(required = true) List<Book> books){
+         return ResponseEntity.ok(bookService.addBooks(books));
+    }
+
     @PutMapping("/updateBook")
     public ResponseEntity<Map<String,String>> updateBook(@RequestBody Book book){
         return ResponseEntity.ok(bookService.updateBook(book));
@@ -40,5 +46,10 @@ public class BookController {
     @GetMapping("/allBooks")
     public ResponseEntity<APIResponseData<List<Book>>> getallBooks(){
        return ResponseEntity.ok(bookService.getBooks());
+    }
+
+    @GetMapping("/bookDetails")
+    public ResponseEntity<List<BookDetails>> getbookDetails(){
+        return ResponseEntity.ok(bookService.getBookDetails());
     }
 }
