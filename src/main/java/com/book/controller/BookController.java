@@ -52,4 +52,9 @@ public class BookController {
     public ResponseEntity<List<BookDetails>> getbookDetails(){
         return ResponseEntity.ok(bookService.getBookDetails());
     }
+
+    @GetMapping("/display")
+    public String display(){
+        return "welcome to Heroku";
+    }
 }
