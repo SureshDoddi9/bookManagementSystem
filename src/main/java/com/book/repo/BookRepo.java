@@ -1,7 +1,6 @@
 package com.book.repo;
 
 import com.book.model.Book;
-import com.book.model.BookDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +14,6 @@ public interface BookRepo extends JpaRepository<Book,Integer> {
 
     @Query(value = "select publisher,group_concat(name) from Book group by publisher",nativeQuery = true)
     List<Object[]> getBookDetails();
+
+    List<Book> findByNameContaining(String word);
 }

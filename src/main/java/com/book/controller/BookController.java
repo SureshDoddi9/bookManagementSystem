@@ -57,4 +57,24 @@ public class BookController {
     public String display(){
         return "welcome to Heroku";
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<APIResponseData<List<Book>>> searchBookWith(@RequestParam String bookName){
+         return ResponseEntity.ok(bookService.bookSearch(bookName));
+    }
+
+    @GetMapping("/top3")
+    public ResponseEntity<APIResponseData<List<Book>>> top3Books(){
+        return ResponseEntity.ok(bookService.top3Books());
+    }
+
+    @GetMapping("/highestSale")
+    public ResponseEntity<APIResponseData<Book>> getBookshightestSale(@RequestParam int id1,@RequestParam int id2){
+        return ResponseEntity.ok(bookService.maximumSales(id1,id2));
+    }
+
+//    @GetMapping("/lamda")
+//    public ResponseEntity<APIResponseData<List<Book>>> getBookstestPredicate(){
+//        return ResponseEntity.ok(bookService.getCheckedBooks());
+//    }
 }

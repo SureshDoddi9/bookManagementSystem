@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -86,4 +87,63 @@ public class BookService {
         });
         return bookDetails;
     }
+
+    public APIResponseData<List<Book>> bookSearch(String word){
+       List<Book> books = bookRepo.findByNameContaining(word);
+       if(!books.isEmpty()){
+           return APIResponseData.<List<Book>>builder()
+                   .success(true)
+                   .data(books)
+                   .build();
+       }else{
+           throw CustomException.with(ExceptionEnum.Book_Not_Found);
+       }
+    }
+
+    public APIResponseData<List<Book>> top3Books(){
+        List<Book> books = bookRepo.findAll();
+        List<Book> collect = books.stream().sorted(Comparator.comparing(Book::getPrice).reversed()).limit(3).collect(Collectors.toList());
+        return APIResponseData.<List<Book>>builder()
+                    .success(true)
+                    .data(collect)
+                    .build();
+    }
+
+    public APIResponseData<Book> maximumSales(int id1,int id2){
+       Optional<Book> book1 = bookRepo.findById(id1);
+       Optional<Book> book2 = bookRepo.findById(id2);
+       if(book1.isPresent() && book2.isPresent()){
+           if(book1.get().getSales()>book2.get().getSales()){
+               return APIResponseData.<Book>builder()
+                       .success(true)
+                       .data(book1.get())
+                       .build();
+           }else{
+               return APIResponseData.<Book>builder()
+                       .success(true)
+                       .data(book2.get())
+                       .build();
+           }
+       }else{
+           throw CustomException.with(ExceptionEnum.Book_Not_Found);
+       }
+    }
+
+    public APIResponseData<List<Book>> checkMaximumSales(List<Book> books,Predicate<Book> book){
+        List<Book> checkedBooks = new ArrayList<>();
+        books.forEach(boo -> {
+            if(book.test(boo)){
+                checkedBooks.add(boo);
+            };
+        });
+        return APIResponseData.<List<Book>>builder()
+                .success(true)
+                .data(checkedBooks)
+                .build();
+    }
+
+//    public APIResponseData<List<Book>> getCheckedBooks(){
+//        return checkMaximumSales(bookRepo.findAll(),b-> b.getPrice() > 40000.00);
+//    }
+
 }
