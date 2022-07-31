@@ -39,7 +39,7 @@ public class BookController {
     }
 
     @GetMapping("/getBook")
-    public ResponseEntity<APIResponseData<Book>> getBook(int id){
+    public ResponseEntity<APIResponseData<Book>> getBook(@RequestParam int id){
        return ResponseEntity.ok(bookService.getBook(id));
     }
 
