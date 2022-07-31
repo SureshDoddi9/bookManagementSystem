@@ -5,7 +5,6 @@ import com.book.model.APIResponseData;
 import com.book.model.Book;
 import com.book.service.BookService;
 import com.book.util.TestUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
