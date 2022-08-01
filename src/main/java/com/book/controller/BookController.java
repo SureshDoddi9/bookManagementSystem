@@ -48,10 +48,10 @@ public class BookController {
        return ResponseEntity.ok(bookService.getBooks());
     }
 
-    @GetMapping("/bookDetails")
-    public ResponseEntity<List<BookDetails>> getbookDetails(){
-        return ResponseEntity.ok(bookService.getBookDetails());
-    }
+//    @GetMapping("/bookDetails")
+//    public ResponseEntity<List<BookDetails>> getbookDetails(){
+//        return ResponseEntity.ok(bookService.getBookDetails());
+//    }
 
     @GetMapping("/display")
     public String display(){

@@ -76,17 +76,17 @@ public class BookService {
         return bookRepo.saveAll(books);
     }
 
-    public List<BookDetails> getBookDetails(){
-        List<Object[]> books = bookRepo.getBookDetails();
-        List<BookDetails> bookDetails = new ArrayList<>();
-        books.forEach(book->{
-            BookDetails bookDet = new BookDetails();
-            bookDet.setPublisher(book[0]+"");
-            bookDet.setBooks(Stream.of(book[1].toString().split(",")).collect(Collectors.toList()));
-            bookDetails.add(bookDet);
-        });
-        return bookDetails;
-    }
+//    public List<BookDetails> getBookDetails(){
+//        List<Object[]> books = bookRepo.getBookDetails();
+//        List<BookDetails> bookDetails = new ArrayList<>();
+//        books.forEach(book->{
+//            BookDetails bookDet = new BookDetails();
+//            bookDet.setPublisher(book[0]+"");
+//            bookDet.setBooks(Stream.of(book[1].toString().split(",")).collect(Collectors.toList()));
+//            bookDetails.add(bookDet);
+//        });
+//        return bookDetails;
+//    }
 
     public APIResponseData<List<Book>> bookSearch(String word){
        List<Book> books = bookRepo.findByNameContaining(word);
@@ -142,8 +142,5 @@ public class BookService {
                 .build();
     }
 
-//    public APIResponseData<List<Book>> getCheckedBooks(){
-//        return checkMaximumSales(bookRepo.findAll(),b-> b.getPrice() > 40000.00);
-//    }
 
 }
